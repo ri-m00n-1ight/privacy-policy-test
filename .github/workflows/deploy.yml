@@ -1,0 +1,27 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Pages
+        uses: actions/setup-pages@v1
+
+      - name: Deploy to GitHub Pages
+        run: |
+          mkdir public
+          echo "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Privacy Policy</title></head><body><h1>Privacy Policy</h1><p>Here is the privacy policy content.</p></body></html>" > public/index.html
+          npx gh-pages -d public
+
+    permissions:
+      pages: write
+      id-token: write
